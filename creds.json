@@ -1,0 +1,8 @@
+{
+    "account": "vz31470.west-europe.azure",
+    "user": "HR",
+    "password": "hrPassword123",
+    "warehouse": "COMPUTE_WH",
+    "database": "HR",
+    "schema": "LKDN_LICENSES"
+  }
