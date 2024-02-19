@@ -10,7 +10,8 @@ from itertools import product
 st.set_page_config(
     page_title= 'Freeze Periods'
 )
-st.title("**Freeze Periods Table**")
+#st.title("**Freeze Periods Table**")
+st.title(f" :grey[{'Freeze Periods Table'}]")
 
 def cart_prod(l1, l2):
    return list(product(l1, l2))
@@ -20,9 +21,12 @@ def add_bg_from_url():
          f"""
          <style>
          .stApp {{
-             background-image: url("https://abettertodaymedia.com/wp-content/uploads/et_temp/Light-Grey-Background-Hd-5-651927_1080x675.jpg");
-             background-attachment: fixed;
-             background-size: cover
+            background-color: white;
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+            
+             
          }}
          </style>
          """,
@@ -54,8 +58,10 @@ if 'df' not in st.session_state:
 
 df = original_DF
 
+x= 'Filter MBR Scope'
+
 MBR_SCOPE = st.multiselect(
-    'Filter MBR Scope',
+    f":black[{'Filter MBR Scope'}]",
     list(set(list(df["MBR Scope"]))),
     label_visibility="visible"
     )
@@ -75,7 +81,7 @@ with st.form("freeze_periods_form"):
             df = df[df.set_index(['MBR Scope','MBR Month']).index.isin(list(cart_prod(MBR_SCOPE, MBR_MONTH)))]
         else:
             df = df
-        st.caption("Unfreeze/ Refreeze by using IsFrozen column")
+        st.subheader(":blue[Unfreeze/ Refreeze by using IsFrozen column]")
         edited_data = st.data_editor(
             df,
             column_order = ("MBR Scope","MBR Month","Is Frozen"),
