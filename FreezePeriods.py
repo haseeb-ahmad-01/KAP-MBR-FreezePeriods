@@ -61,12 +61,12 @@ df = original_DF
 x= 'Filter MBR Scope'
 
 MBR_SCOPE = st.multiselect(
-    f":black[{'Filter MBR Scope'}]",
+    f":blue[{'Filter MBR Scope'}]",
     list(set(list(df["MBR Scope"]))),
     label_visibility="visible"
     )
 MBR_MONTH = st.multiselect(
-    'Filter MBR Month',
+    f":blue[{'Filter MBR Month'}]",
     list(set(list(df["MBR Month"]))),
     label_visibility="visible"
     )
