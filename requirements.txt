@@ -7,3 +7,4 @@ pydeck
 streamlit
 snowflake-connector-python
 snowflake-snowpark-python
+streamlit-authenticator

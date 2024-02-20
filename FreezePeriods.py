@@ -6,12 +6,55 @@ import time
 from snowflake.snowpark import Session
 import snowflake.snowpark as snowpark
 from itertools import product
+import hmac
+
 
 st.set_page_config(
     page_title= 'Freeze Periods'
 )
 #st.title("**Freeze Periods Table**")
-st.title(f" :grey[{'Freeze Periods Table'}]")
+st.title(f" :white[{'Freeze Periods Table'}]")
+
+
+def check_password():
+    """Returns `True` if the user had a correct password."""
+
+    def login_form():
+        """Form with widgets to collect user information"""
+        with st.form("Credentials"):
+            st.text_input("Username", key="username")
+            st.text_input("Password", type="password", key="password")
+            st.form_submit_button("Log in", on_click=password_entered)
+
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if st.session_state["username"] in st.secrets[
+            "passwords"
+        ] and hmac.compare_digest(
+            st.session_state["password"],
+            st.secrets.passwords[st.session_state["username"]],
+        ):
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # Don't store the username or password.
+            del st.session_state["username"]
+        else:
+            st.session_state["password_correct"] = False
+
+    # Return True if the username + password is validated.
+    if st.session_state.get("password_correct", False):
+        return True
+
+    # Show inputs for username + password.
+    login_form()
+    if "password_correct" in st.session_state:
+        st.error("Username or password incorrect")
+    return False
+
+
+if not check_password():
+    st.stop()
+
+
 
 def cart_prod(l1, l2):
    return list(product(l1, l2))
@@ -21,11 +64,11 @@ def add_bg_from_url():
          f"""
          <style>
          .stApp {{
-            background-color: white;
+            background-color: #bfbfbd;
             margin: auto;
             width: 50%;
             padding: 10px;
-            
+            color: white;
              
          }}
          </style>
@@ -58,15 +101,14 @@ if 'df' not in st.session_state:
 
 df = original_DF
 
-x= 'Filter MBR Scope'
 
 MBR_SCOPE = st.multiselect(
-    f":blue[{'Filter MBR Scope'}]",
+    "Filter MBR Scope",
     list(set(list(df["MBR Scope"]))),
     label_visibility="visible"
     )
 MBR_MONTH = st.multiselect(
-    f":blue[{'Filter MBR Month'}]",
+    "Filter MBR Month",
     list(set(list(df["MBR Month"]))),
     label_visibility="visible"
     )
@@ -81,7 +123,7 @@ with st.form("freeze_periods_form"):
             df = df[df.set_index(['MBR Scope','MBR Month']).index.isin(list(cart_prod(MBR_SCOPE, MBR_MONTH)))]
         else:
             df = df
-        st.subheader(":blue[Unfreeze/ Refreeze by using IsFrozen column]")
+        st.subheader("Unfreeze/ Refreeze by using IsFrozen column")
         edited_data = st.data_editor(
             df,
             column_order = ("MBR Scope","MBR Month","Is Frozen"),
