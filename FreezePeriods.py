@@ -64,7 +64,7 @@ def add_bg_from_url():
          f"""
          <style>
          .stApp {{
-            background-color: #bfbfbd;
+            background-color: #0c549c;
             margin: auto;
             width: 50%;
             padding: 10px;
@@ -102,6 +102,22 @@ if 'df' not in st.session_state:
 df = original_DF
 
 
+st.markdown(
+         f"""
+         <style>
+         .stApp {{
+            background-color: #e1e5e8;
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+            color: white;
+             
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
 MBR_SCOPE = st.multiselect(
     "Filter MBR Scope",
     list(set(list(df["MBR Scope"]))),
@@ -136,7 +152,7 @@ with st.form("freeze_periods_form"):
             use_container_width=True,
             hide_index=True
             )    
-        submit_button = st.form_submit_button("Update record")
+        submit_button = st.form_submit_button(" :green[Update record]")
 
 if submit_button:
     try:
