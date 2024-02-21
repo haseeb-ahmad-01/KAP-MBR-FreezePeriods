@@ -91,7 +91,7 @@ def get_freezePeriod_data():
 
     return df
 
-add_bg_from_url() 
+#add_bg_from_url() 
 
 
 original_DF = get_freezePeriod_data()
