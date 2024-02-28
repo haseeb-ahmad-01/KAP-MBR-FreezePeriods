@@ -80,7 +80,7 @@ def add_bg_from_url():
 def get_freezePeriod_data():
     if 'snowflake_connection' not in st.session_state:
         #Connect to Snowflake
-        with open('creds_dev.json') as f:
+        with open('creds.json') as f:
             connection_param = json.load(f)
         st.session_state.snowflake_connection = Session.builder.configs(connection_param).create()   
         session = st.session_state.snowflake_connection
@@ -110,7 +110,7 @@ st.markdown(
             margin: auto;
             width: 50%;
             padding: 10px;
-            color: white;
+            color: black;
              
          }}
          </style>
@@ -140,6 +140,7 @@ with st.form("freeze_periods_form"):
         else:
             df = df
         st.subheader("Unfreeze/ Refreeze by using IsFrozen column")
+        
         edited_data = st.data_editor(
             df,
             column_order = ("MBR Scope","MBR Month","Is Frozen"),

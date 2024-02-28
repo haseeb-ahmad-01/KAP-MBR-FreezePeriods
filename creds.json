@@ -1,8 +1,10 @@
 {
-    "account": "vz31470.west-europe.azure",
-    "user": "HR",
-    "password": "hrPassword123",
-    "warehouse": "COMPUTE_WH",
-    "database": "HR",
-    "schema": "LKDN_LICENSES"
-  }
+  "account": "vz31470.west-europe.azure",
+  "user": "DBT",
+  "role": "TRANSFORM",
+  "password": "dbtPassword123",
+  "warehouse": "COMPUTE_WH",
+  "database": "OCEAN",
+  "schema": "OCEAN_ADM",
+  "client_session_keep_alive" : "true"
+}
