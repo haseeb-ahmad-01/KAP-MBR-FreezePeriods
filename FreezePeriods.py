@@ -80,7 +80,7 @@ def add_bg_from_url():
 def get_freezePeriod_data():
     if 'snowflake_connection' not in st.session_state:
         #Connect to Snowflake
-        with open('creds.json') as f:
+        with open('creds_dev.json') as f:
             connection_param = json.load(f)
         st.session_state.snowflake_connection = Session.builder.configs(connection_param).create()   
         session = st.session_state.snowflake_connection
